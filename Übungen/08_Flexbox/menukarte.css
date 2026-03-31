@@ -1,0 +1,21 @@
+
+.container{
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto auto;
+    column-gap: 3px;
+    row-gap: 3px;
+}
+
+.Karte{
+
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 6%;
+}
+
+{
+
+}
