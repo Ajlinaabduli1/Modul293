@@ -2,10 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=p, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Varianten Beispiel</title>
+
+    <!-- Font Awesome (Icon Fonts) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Sprite Beispiel */
+        .icon-sprite {
+            width: 20px;
+            height: 20px;
+            background: url("https://www.hauert.com/fileadmin/MediaValet/_processed_/1/1/csm_Orange_yi1YB_FubH8-unsplash_128aea4909.jpg") no-repeat;
+            background-size: cover;
+            display: inline-block;
+        }
+
+        .icon-sprite2 {
+            width: 20px;
+            height: 20px;
+            background: url("https://www.hauert.com/fileadmin/MediaValet/_processed_/1/1/csm_Orange_yi1YB_FubH8-unsplash_128aea4909.jpg") no-repeat;
+            background-size: cover;
+            display: inline-block;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        img.icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
-    <p>ajlina hat es geschafft</p>
+
+    <h1>Icon Varianten Test</h1>
+
+    <!-- 1. Einzelbild -->
+    <div class="section">
+        <h2>1) Einzelbild</h2>
+        <img class="icon" src="https://www.hauert.com/fileadmin/MediaValet/_processed_/1/1/csm_Orange_yi1YB_FubH8-unsplash_128aea4909.jpg" alt="Icon">
+        ajlina hat es geschafft
+    </div>
+
+    <!-- 2. Spritebild -->
+    <div class="section">
+        <h2>2) Spritebild</h2>
+        <span class="icon-sprite"></span>
+        <span class="icon-sprite2"></span>
+        ajlina hat es geschafft
+    </div>
+
+    <!-- 3. Icon Font (Font Awesome) -->
+    <div class="section">
+        <h2>3) Icon Font</h2>
+        <i class="fa-solid fa-star"></i>
+        ajlina hat es geschafft
+        <i class="fa-solid fa-check"></i>
+    </div>
+
+    <!-- 4. SVG -->
+    <div class="section">
+        <h2>4) SVG Icon</h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="green">
+            <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        ajlina hat es geschafft
+    </div>
+
 </body>
 </html>
