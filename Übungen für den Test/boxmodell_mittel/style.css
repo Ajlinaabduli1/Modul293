@@ -1,0 +1,35 @@
+
+*{
+    box-sizing: border-box;
+    
+}
+
+body{
+    height: 100%;
+}
+header{
+
+    background-color: darkslategrey;
+    margin: 0;
+    padding: 20px;
+
+
+}
+nav
+{
+    display: block;
+}
+a{
+    color: white;
+}
+
+footer{
+    background-color: darkslategrey;
+    margin: 0;
+    padding: 3%;
+}
+
+main{
+
+    height: 500px;
+}
