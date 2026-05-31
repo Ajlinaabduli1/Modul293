@@ -11,25 +11,45 @@ header{
 
     background-color: darkslategrey;
     margin: 0;
-    padding: 20px;
+    padding: 0px;
+    align-self:flex-start
 
 
 }
 nav
 {
-    display: block;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    
 }
 a{
+    
     color: white;
+    display: block;
+    flex-direction: column;
+    padding: 10px;
+    
+}
+
+a:hover {
+
+    background-color: rgb(61, 101, 103);
+
 }
 
 footer{
     background-color: darkslategrey;
     margin: 0;
     padding: 3%;
+    align-self: flex-end;
 }
 
 main{
 
     height: 500px;
 }
+aside{
+    background-color: bisque;
+}
+
