@@ -1,32 +1,20 @@
-
-
-/* Variabeln*/
+/* Für die Grössen mit rem und weiteres teilweise KI benutzt als hilfe*/
+/* -------------------------------------------
+   FARBEN
+   ------------------------------------------- */
 :root {
-  /* Farben */
-  --teal:      #7FA9AE;
-  --blue:      #6B9AC4;
-  --yellow:    #F6E7A1;
-  --lightblue: #D6E0EA;
-  --dark:      #2F3E46;
-  --white:     #ffffff;
-
-  /* Schriftgrössen (fluid / clamp) */
-  --fs-title:      clamp(1.8rem,  6vw,  2.8rem);
-  --fs-subtitle:   clamp(1rem,    3vw,  1.35rem);
-  --fs-body:       clamp(0.6rem,  1.8vw, 0.75rem);
-  --fs-nav:        clamp(0.55rem, 1.5vw, 0.7rem);
-  --fs-logo:       clamp(0.6rem,  1.5vw, 0.75rem);
-  --fs-footer:     clamp(0.5rem,  1.2vw, 0.65rem);
-  --fs-card-title: clamp(0.8rem,  2.5vw, 1rem);
-  --fs-card-text:  clamp(0.6rem,  1.8vw, 0.72rem);
-  --fs-card-link:  clamp(0.6rem,  1.6vw, 0.72rem);
-  --fs-optional:   clamp(1.2rem,  4vw,   1.8rem);
+  --teal:    #7FA9AE;
+  --blue:    #6B9AC4;
+  --yellow:  #F6E7A1;
+  --light:   #D6E0EA;
+  --dark:    #2F3E46;
+  --white:   #ffffff;
 }
 
-/* 
-   2. Reset
-*/
-*, *::before, *::after {
+.yellow { color: var(--yellow); }
+.teal { color: var(--teal);   }
+
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -38,291 +26,328 @@ body {
   color: var(--dark);
 }
 
-.a-yellow { 
-  color: var(--yellow); 
-}
-.a-teal   { 
-  color: var(--teal);  
- }
-/* 
-   3. header
- */
+
+/* -------------------------------------------
+   HEADER
+   ------------------------------------------- */
 .header {
   background: var(--blue);
-  height: 2.4rem;
+  height: 3.2rem;
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   gap: 0.75rem;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-/* Logo */
+
+/* -------------------------------------------
+   LOGO
+   "All About Ajlina" steht UNTER "AAA"
+   ------------------------------------------- */
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
-.cpu-icon {
-  width: 1.4rem;
-  height: 1.4rem;
-  flex-shrink: 0;
+
+.logo-icon {
+  width: 1.8rem;
+  height: 1.8rem;
 }
-.cpu-icon svg {
+
+.logo-icon svg {
   width: 100%;
   height: 100%;
 }
+
+/* Logo-Text: AAA oben, "All About Ajlina" darunter */
 .logo-text {
   display: flex;
   flex-direction: column;
-  line-height: 1;
-}
-.logo-aaa {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: var(--fs-logo);
-  letter-spacing: 0.07em;
-}
-.logo-tagline {
-  font-size: calc(var(--fs-logo) * 0.65);
-  color: var(--dark);
-  opacity: 0.85;
+  line-height: 1.1;
 }
 
-/* Navigation */
-.site-nav {
+.logo-name {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.07em;
+  color: var(--yellow);
+}
+
+.logo-sub {
+  font-size: 0.58rem;
+  opacity: 0.85;
+  color: var(--yellow);
+}
+
+
+/* -------------------------------------------
+   NAVIGATION (Desktop)
+   ------------------------------------------- */
+.nav {
   display: flex;
   align-items: center;
   gap: 0.1rem;
   margin-left: 0.25rem;
-  flex-wrap: wrap;
 }
-.site-nav a {
-  font-size: var(--fs-nav);
+
+.nav a {
+  font-size: 0.85rem;
   text-decoration: none;
-  color: var(--dark);
-  padding: 0.25rem 0.5rem;
+  color: var(--white);
+  padding: 0.3rem 0.6rem;
   border-radius: 0.15rem;
-  font-weight: 400;
-  transition: background 0.2s;
 }
-.site-nav a.active {
-  background: rgba(255, 255, 255, 0.35);
+
+.nav a.active {
+  background: var(--dark);
   font-weight: 600;
 }
-.site-nav a:hover:not(.active) {
+
+.nav a:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Hamburger (mobile) */
-.nav-toggle {
+.nav a.active:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+
+/* -------------------------------------------
+   HAMBURGER-MENÜ (nur Mobile)
+   Checkbox-Trick ohne JavaScript
+   ------------------------------------------- */
+
+/* Checkbox verstecken */
+#nav-toggle {
   display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
+}
+
+/* Hamburger-Label: standardmässig versteckt (Desktop) */
+.nav-label {
+  display: none;
   margin-left: auto;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.25rem;
-}
-.nav-toggle span {
-  display: block;
-  width: 1.25rem;
-  height: 0.15rem;
-  background: var(--dark);
-  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: var(--white);
+  padding: 0 0.25rem;
+  user-select: none;
+  /* Wichtig: kein position:absolute hier, damit es nicht über nav-card liegt */
+  position: static;
+  inset: auto;
+  font-family: inherit;
+  text-shadow: none;
+  letter-spacing: 0;
+  line-height: 1;
+  pointer-events: auto;
 }
 
-/* 
-   4. wrapper (Standard-Seiten: Über mich, Fähigkeiten, Portfolio)
- */
-.page-wrapper {
-  background: var(--white);
-  max-width: 38rem;
+
+/* -------------------------------------------
+   WRAPPER
+   ------------------------------------------- */
+.wrapper {
+  width: 90%;
+  max-width: 75rem;
   margin: 0 auto;
-  min-height: calc(100vh - 2.4rem - 2.5rem);
   padding-bottom: 2rem;
+  min-height: calc(100vh - 3.2rem - 2.5rem);
 }
 
-/* 
-   5. Seitentitel (h1 + gelber Trennstrich)
- */
+
+/* -------------------------------------------
+   SEITENTITEL (H1 + gelber Strich)
+   ------------------------------------------- */
 .page-title {
   text-align: center;
-  padding: 2rem 1.25rem 0;
+  padding: 2.5rem 1.25rem 0;
 }
+
 .page-title h1 {
   font-family: 'Bevan', serif;
-  font-size: var(--fs-title);
-  color: var(--dark);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
   letter-spacing: 0.12em;
   line-height: 1.1;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
-.title-divider {
-  width: 11rem;
-  height: 3px;
+
+/* Gelber Strich unter dem Titel – dicker, länger, abgerundete Ecken */
+.title-line {
+  width: 14rem;
+  height: 7px;
+  border-radius: 4px;
   background: var(--yellow);
-  margin: 0.75rem auto 0;
+  margin: 0.875rem auto 0;
 }
 
-/* 
-  6. untertietl & gelber strich 
- */
-.section-subtitle {
+
+/* -------------------------------------------
+   ABSCHNITTS-ÜBERSCHRIFT (H2)
+   ------------------------------------------- */
+.section-title {
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
-  font-size: var(--fs-subtitle);
-  color: var(--dark);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
   letter-spacing: 0.03em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
-.section-subtitle--center {
+
+.section-title.center {
   text-align: center;
 }
-.section-divider {
-  width: 10rem;
-  height: 3px;
+
+/* Gelber Trennstrich – dicker, länger, abgerundete Ecken */
+.divider {
+  width: 13rem;
+  height: 6px;
   background: var(--yellow);
-  margin: 1.1rem auto;
+  border-radius: 4px;
+  margin: 1.5rem auto;
 }
 
-/* 
-  7. text container (hellblauer Hintergrund)
-*/
-.text-box {
-  background: var(--lightblue);
+
+/* -------------------------------------------
+   TEXTBOX (hellblauer Hintergrund)
+   ------------------------------------------- */
+.textbox {
+  background: var(--light);
   border-radius: 0.875rem;
-  padding: 0.75rem 0.875rem;
-  font-family: 'Roboto', sans-serif;
+  padding: 0.875rem 1rem;
   font-weight: 600;
-  font-size: var(--fs-body);
-  line-height: 1.55;
-  color: var(--dark);
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  line-height: 1.6;
   flex: 1;
 }
 
-/* 
-   8. layout (content-section, media-row)
- */
-.content-section {
+
+/* -------------------------------------------
+   ABSCHNITT + BILD-TEXT LAYOUT
+   ------------------------------------------- */
+.section {
   padding: 0 1.25rem;
 }
-.content-section--top {
-  padding-top: 1.5rem;
+
+.section.top {
+  padding-top: 2rem;
 }
-.media-row {
+
+.row {
   display: flex;
-  gap: 0.875rem;
+  gap: 1rem;
   align-items: flex-start;
 }
-.media-row--reverse {
+
+.row.flip {
   flex-direction: row-reverse;
 }
-.media-row img {
+
+.row img {
   object-fit: cover;
   border-radius: 0.25rem;
   flex-shrink: 0;
 }
 
-/* Über mich: Bildgrössen  */
-.personalien-img {
-  width: clamp(7rem, 30vw, 9.5rem);
-  height: clamp(6rem, 22vw, 7rem);
+
+/* -------------------------------------------
+   ÜBER MICH – Bildgrössen
+   ------------------------------------------- */
+.img-person {
+  width: clamp(8rem, 12vw, 12rem);
+  height: clamp(6rem, 9vw, 9rem);
 }
-.sa-header {
+
+.img-school {
+  width: clamp(6rem, 9vw, 9rem);
+  height: clamp(8rem, 12vw, 12rem);
+}
+
+.img-interest {
+  width: clamp(7rem, 10vw, 10rem);
+  height: clamp(5.5rem, 8vw, 7.5rem);
+}
+
+/* Familienbild: behält immer seine natürliche Proportion */
+.img-family {
+  width: 100%;
+  height: auto;
+  max-height: 18rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  display: block;
+}
+
+/* Schule/Arbeit Kopfzeile */
+.school-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
 }
-.sa-img {
-  width: clamp(5.5rem, 22vw, 7rem);
-  height: clamp(8rem, 30vw, 9.5rem);
-}
-.sa-boxes {
+
+/* Zwei Textboxen nebeneinander */
+.two-boxes {
   display: flex;
   flex: 1;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
-.video {
-  width: clamp(4rem, 16vw, 5.75rem);
-  height: clamp(8rem, 30vw, 9.5rem);
-  background: var(--lightblue);
+
+/* Video */
+.video-box {
+  width: clamp(5rem, 8vw, 8rem);
+  height: clamp(8rem, 12vw, 12rem);
+  background: var(--light);
   border-radius: 0.875rem;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.play-icon {
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 2px solid var(--dark);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.play-icon::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 0.5rem solid transparent;
-  border-bottom: 0.5rem solid transparent;
-  border-left: 0.8rem solid var(--dark);
-  margin-left: 0.2rem;
-}
-.interesse-img {
-  width: clamp(5.5rem, 24vw, 7.5rem);
-  height: clamp(5rem, 18vw, 5.75rem);
-}
-.interessen-list {
+
+/* Interessen-Liste */
+.interest-list {
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-  margin-top: 1rem;
-  list-style: none;
-}
-.familie-img {
-  width: 100%;
-  height: clamp(6rem, 28vw, 8rem);
-  object-fit: cover;
-  border-radius: 0.25rem;
-  margin-top: 0.875rem;
-  display: block;
+  gap: 1rem;
+  margin-top: 1.25rem;
 }
 
-/*
-  9. Fähikeiten -> Skill-Karten
-*/
+
+/* -------------------------------------------
+   FÄHIGKEITEN – Skill-Karten
+   ------------------------------------------- */
 .skills-section {
-  padding: 1.5rem 1.25rem 0;
+  padding: 1.75rem 1.25rem 0;
 }
-.skills-container {
-  background: var(--lightblue);
+
+.cards-wrap {
+  background: var(--light);
   border-radius: 1rem;
-  padding: 1.25rem 1rem;
+  padding: 1.5rem 1.25rem;
   margin-top: 1rem;
 }
-.skills-grid-top {
+
+.cards-top {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
-.skills-grid-bottom {
+
+.cards-bottom {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  gap: 1rem;
   max-width: 66%;
   margin: 0 auto;
 }
-.skill-card {
+
+.card {
   background: var(--teal);
   border-radius: 0.875rem;
   overflow: hidden;
@@ -330,246 +355,230 @@ body {
   flex-direction: column;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
 }
-.skill-card img {
+
+.card img {
   width: 100%;
-  height: clamp(4rem, 15vw, 6rem);
+  height: clamp(6rem, 10vw, 10rem);
   object-fit: cover;
   display: block;
-  flex-shrink: 0;
 }
-.skill-card-body {
-  padding: 0.5rem 0.6rem 0.75rem;
+
+.card-body {
+  padding: 0.625rem 0.75rem 0.875rem;
   flex: 1;
 }
-.skill-card-title {
+
+.card-name {
   font-family: 'Baloo Chettan 2', cursive;
   font-weight: 600;
-  font-size: var(--fs-card-title);
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
   color: var(--white);
   margin-bottom: 0.3rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
-.skill-card-text {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  font-size: var(--fs-card-text);
+
+.card-text {
+  font-size: clamp(0.72rem, 1vw, 0.88rem);
   color: var(--white);
   line-height: 1.5;
 }
 
-.skill-card--optional .skill-card-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-}
-.skill-card--optional .skill-card-title {
-  font-size: clamp(1rem, 3vw, 1.4rem);
+
+/* -------------------------------------------
+   PORTFOLIO – Projekt-Karten
+   ------------------------------------------- */
+.intro-box {
+  background: var(--light);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 1.25rem 0;
+  font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+  line-height: 1.6;
   text-align: center;
-  margin-bottom: 0;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-/* 
-  10. Portfoli0 –> Projekt-Karten
-*/
-.portfolio-container {
-  background: var(--lightblue);
+.projects-wrap {
+  background: var(--light);
   border-radius: 1rem;
-  padding: 1.25rem 1rem 1.5rem;
+  padding: 1.5rem 1.25rem 1.75rem;
   margin: 1.25rem 1.25rem 0;
 }
-.intro-box {
-  background: var(--lightblue);
-  border-radius: 1rem;
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 1.25rem 0;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: var(--fs-body);
-  line-height: 1.6;
-  color: var(--dark);
-  text-align: center;
-}
-.cards-grid-top {
+
+.projects-top {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
-.cards-grid-bottom {
+
+.projects-bottom {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  gap: 1rem;
   max-width: 68%;
   margin: 0 auto;
 }
-.project-card {
+
+.project {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
 }
-.project-card img {
+
+.project img {
   width: 100%;
-  height: clamp(5rem, 16vw, 8rem);
+  height: clamp(7rem, 11vw, 11rem);
   object-fit: cover;
   display: block;
-  flex-shrink: 0;
 }
-.project-card-body {
-  padding: 0.5rem 0.6rem 0.6rem;
+
+.project-body {
+  padding: 0.6rem 0.75rem 0.75rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
-.project-card-title {
-  font-family: 'Roboto', sans-serif;
+
+.project-name {
   font-weight: 700;
-  font-size: var(--fs-card-title);
-  color: var(--dark);
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
   line-height: 1.2;
 }
-.project-card-desc {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: var(--fs-card-text);
-  color: var(--dark);
+
+.project-desc {
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
   line-height: 1.4;
   flex: 1;
 }
-.project-card-link {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: var(--fs-card-link);
+
+.project-link {
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
   color: var(--dark);
   text-decoration: none;
   margin-top: 0.3rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-}
-.project-card-link:hover { text-decoration: underline; }
-.project-card-link::after { content: '→'; }
-
-.card-blue   { background: var(--blue); }
-.card-yellow { background: var(--yellow); }
-.card-blue .project-card-title,
-.card-blue .project-card-desc,
-.card-blue .project-card-link   { color: var(--dark); }
-.card-yellow .project-card-title,
-.card-yellow .project-card-desc,
-.card-yellow .project-card-link { color: var(--dark); }
-
-/* Optional-Label */
-.optional-labels {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.5rem;
-  padding: 0 0.25rem;
-  pointer-events: none;
-}
-.optional-label {
-  font-family: 'Bevan', serif;
-  font-size: var(--fs-optional);
-  color: var(--dark);
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  letter-spacing: 0.05em;
 }
 
-/* 
-   11. Startseite
-*/
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.project-link::after {
+  content: ' →';
+}
+
+.bg-blue   { background: var(--blue); }
+.bg-yellow { background: var(--yellow); }
+
+
+/* -------------------------------------------
+   STARTSEITE – Hero
+   ------------------------------------------- */
 .hero {
-  padding: 2.5rem 1.875rem 1.25rem;
+  padding: 3rem 1.875rem 1.5rem;
 }
-.welcome-heading {
+
+.welcome {
   text-align: center;
   font-family: 'Bevan', serif;
-  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
   line-height: 1.1;
   color: var(--teal);
   text-shadow: 3px 3px 0 var(--dark), 2px 2px 6px rgba(0, 0, 0, 0.25);
   letter-spacing: 0.05em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
+
 .hero-cols {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
 }
-.hero-image-wrap { flex: 0 0 auto; }
-.hero-image-wrap img {
-  width: clamp(10rem, 45vw, 14rem);
-  height: clamp(7rem, 30vw, 9rem);
+
+.hero-img img {
+  width: clamp(12rem, 18vw, 18rem);
+  height: clamp(8rem, 12vw, 12rem);
   object-fit: cover;
   display: block;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.35);
 }
-.hero-divider {
-  width: 10rem;
-  height: 3px;
+
+.hero-line {
+  width: clamp(10rem, 16vw, 16rem);
+  height: 5px;
   background: var(--yellow);
+  border-radius: 4px;
   margin-top: 0.875rem;
 }
-.letter-grid {
+
+.letters {
   display: grid;
-  grid-template-columns: repeat(3, 2.25rem);
-  grid-template-rows: repeat(6, 2.375rem);
+  grid-template-columns: repeat(3, clamp(2rem, 3vw, 3rem));
+  grid-template-rows: repeat(6, clamp(2rem, 3vw, 3rem));
   gap: 2px;
   margin-left: auto;
   padding-top: 0.25rem;
 }
-.letter-grid span {
+
+.letters span {
   font-family: 'Bevan', serif;
-  font-size: clamp(1.4rem, 5vw, 1.75rem);
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-.lg-teal   { color: var(--teal); }
-.lg-yellow { color: var(--yellow); }
 
-/* Starten-mit Section */
-.starten-section {
-  padding: 1.25rem 1.875rem 2rem;
+
+/* -------------------------------------------
+   STARTSEITE – "Starten mit…" Karten
+   ------------------------------------------- */
+.start-section {
+  padding: 1.5rem 1.875rem 2.5rem;
 }
-.starten-title {
+
+.start-title {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: var(--fs-subtitle);
-  color: var(--dark);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
   letter-spacing: 0.03em;
-  margin-bottom: 1.375rem;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
-.cards-grid {
+
+.nav-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.875rem;
+  gap: 1rem;
 }
-.card {
+
+.nav-card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  display: block;
+  text-decoration: none;
 }
-.card img {
+
+.nav-card img {
   width: 100%;
-  height: clamp(5rem, 22vw, 7rem);
+  height: clamp(7rem, 11vw, 11rem);
   object-fit: cover;
   display: block;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.35);
   filter: brightness(0.75);
-  transition: filter 0.3s;
 }
-.card:hover img { filter: brightness(0.9); }
-.card-label {
+
+.nav-card:hover img {
+  filter: brightness(0.9);
+}
+
+/* Text über dem Bild – ACHTUNG: .nav-label wird hier überschrieben
+   für die nav-card spezifische Verwendung */
+.nav-card .nav-label {
   position: absolute;
   inset: 0;
   display: flex;
@@ -577,52 +586,64 @@ body {
   justify-content: center;
   text-align: center;
   font-family: 'Bevan', serif;
-  font-size: clamp(1rem, 4vw, 1.25rem);
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
   color: var(--dark);
-  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 2px 2px 6px rgba(255, 255, 255, 0.6);
+  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
   letter-spacing: 0.05em;
   line-height: 1.2;
   padding: 0.5rem;
   pointer-events: none;
+  /* Reset der hamburger-label Stile */
+  margin-left: 0;
+  cursor: default;
+  user-select: none;
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
 }
 
-/* 
-   12. Kontakt – Sidebar-Layout
- */
-.page-body {
-  flex: 1;
-  display: flex;
-  background: var(--white);
-  max-width: 55rem;
-  margin: 0 auto;
-  width: 100%;
-}
 
-/* Sidebar */
-.sidebar {
-  background: var(--dark);
-  color: var(--white);
-  width: 36%;
-  min-width: 13rem;
-  padding: 2rem 1.5rem;
+/* -------------------------------------------
+   KONTAKT-SEITE
+   ------------------------------------------- */
+body.kontakt {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-.sidebar-title {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  font-size: clamp(1rem, 3vw, 1.3rem);
+
+body.kontakt .footer {
+  margin-top: auto;
+}
+
+/* Sidebar klebt direkt am linken Rand */
+.contact-wrap {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar {
+  background: var(--dark);
   color: var(--white);
+  width: clamp(14rem, 28%, 20rem);
+  min-width: 13rem;
+  padding: 2.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar h2 {
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 600;
   margin-bottom: 1.2rem;
 }
-.sidebar-text {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: clamp(0.65rem, 1.8vw, 0.78rem);
+
+.sidebar p {
+  font-size: clamp(0.78rem, 1vw, 0.9rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.88);
   margin-bottom: 2.5rem;
 }
+
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -630,6 +651,7 @@ body {
   margin-top: auto;
   padding-top: 1rem;
 }
+
 .contact-item {
   display: flex;
   flex-direction: column;
@@ -637,28 +659,31 @@ body {
   gap: 0.4rem;
   text-align: center;
 }
+
 .contact-icon {
   width: 2rem;
   height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-.contact-icon svg { width: 100%; height: 100%; }
-.contact-label {
+
+.contact-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-item span {
   font-family: 'Baloo Chettan 2', cursive;
-  font-weight: 400;
-  font-size: clamp(0.7rem, 2vw, 0.85rem);
-  color: var(--white);
+  font-size: 0.85rem;
   line-height: 1.35;
 }
-.social-row {
+
+.socials {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-top: 1.8rem;
 }
-.social-icon {
+
+.social {
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
@@ -666,138 +691,196 @@ body {
   justify-content: center;
   border: 2px solid var(--white);
   border-radius: 0.35rem;
-  color: var(--white);
 }
-.social-icon svg { width: 1.4rem; height: 1.4rem; }
 
-/* Kontaktformular */
-.main-content {
+.social svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* Rechts: Formular */
+.form-wrap {
   flex: 1;
-  padding: 2rem 2rem 2.5rem;
+  padding: 2.5rem 2.5rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.form-title {
-  font-family: 'Roboto', sans-serif;
+
+.form-wrap h1 {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   font-weight: 600;
-  font-size: clamp(1.3rem, 4vw, 1.9rem);
-  color: var(--dark);
   text-align: center;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.18);
+  margin-bottom: 1rem;
 }
-.contact-form-wrap {
-  background: var(--lightblue);
+
+/* Titel-Linie im Formular */
+.form-wrap .title-line {
+  margin-bottom: 1.75rem;
+}
+
+.form-inner {
+  background: var(--light);
   border-radius: 1rem;
-  padding: 1.5rem 1.75rem 1.75rem;
+  padding: 1.75rem 2rem 2rem;
   width: 100%;
-  max-width: 28rem;
+  max-width: 32rem;
 }
-.form-group {
+
+.field {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.25rem;
 }
-.form-group:last-child { margin-bottom: 0; }
-.form-group label {
-  font-family: 'Roboto', sans-serif;
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field label {
   font-weight: 500;
-  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
-  color: var(--dark);
+  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
 }
-.form-group input,
-.form-group textarea {
+
+.field input,
+.field textarea {
   width: 100%;
   background: var(--white);
   border: none;
   border-radius: 0.4rem;
-  padding: 0.55rem 0.7rem;
+  padding: 0.6rem 0.75rem;
   font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: clamp(0.7rem, 1.8vw, 0.82rem);
+  font-size: clamp(0.82rem, 1vw, 0.9rem);
   color: var(--dark);
   outline: none;
-  transition: box-shadow 0.2s;
 }
-.form-group input:focus,
-.form-group textarea:focus {
+
+.field input:focus,
+.field textarea:focus {
   box-shadow: 0 0 0 2px var(--teal);
 }
-.form-group textarea {
+
+.field textarea {
   min-height: 9rem;
   resize: vertical;
 }
 
-/* 
-   13. footer
-*/
-.site-footer {
+
+/* -------------------------------------------
+   FOOTER
+   Instagram-Icon korrigiert (kein fill auf dem svg-root)
+   ------------------------------------------- */
+.footer {
   background: var(--dark);
-  color: var(--offwhite);
+  color: var(--white);
   min-height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 1.25rem;
-  font-size: var(--fs-footer);
+  font-size: 0.7rem;
 }
+
 .footer-left {
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
 }
+
 .footer-brand {
+  color: var(--yellow);
   font-weight: 700;
-  font-size: calc(var(--fs-footer) * 1.15);
+  font-size: 0.8rem;
 }
-.footer-tagline { opacity: 0.75; }
-.footer-center {
+
+.footer-sub {
+  font-weight: 300;
+  opacity: 0.75;
+}
+
+.footer-mid {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.1rem;
   opacity: 0.85;
 }
+
 .footer-right {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
+
+/* Footer-Icons: fill:none damit Instagram-Vektogramm korrekt aussieht */
 .footer-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  fill: var(--offwhite);
+  width: 1.2rem;
+  height: 1.2rem;
   display: block;
+  fill: none;
 }
-.c-yellow { color: var(--yellow); }
-.c-teal   { color: var(--teal);   }
 
-/* ══════════════════════════════════════════════════════════════
-   14. HILFSKLASSEN
-══════════════════════════════════════════════════════════════ */
-/* body-layout für Kontakt (flex column) */
-body.layout-kontakt {
-  min-height: 100vh;
+/* LinkedIn braucht fill:white → überschreiben mit spezifischerer Regel */
+.footer-icon.linkedin {
+  fill: white;
+}
+
+
+/* Desktop: Mobile-Schule/Arbeit-Block ausblenden */
+.school-mobile-wrap {
+  display: none;
+}
+
+/* Desktop: Desktop-Schule/Arbeit-Block anzeigen */
+.school-row-desktop {
   display: flex;
-  flex-direction: column;
-}
-body.layout-kontakt .site-footer {
-  margin-top: auto;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   15. RESPONSIVE
-══════════════════════════════════════════════════════════════ */
+/* play button placeholder */
+.play {
+  width: 0;
+  height: 0;
+  border-top: 0.75rem solid transparent;
+  border-bottom: 0.75rem solid transparent;
+  border-left: 1.25rem solid var(--teal);
+  margin-left: 0.2rem;
+}
+
+
+/* -------------------------------------------
+   RESPONSIVE – Handy (unter 600px)
+   ------------------------------------------- */
 @media (max-width: 600px) {
-  .page-wrapper { max-width: 100%; }
 
-  /* Hamburger */
-  .nav-toggle { display: flex; }
-  .site-nav {
+  .wrapper {
+    width: 94%;
+  }
+
+  /* Hamburger-Label nur auf Mobile anzeigen */
+  .nav-label {
+    display: block;
+    /* Alle nav-card Überschreibungen rücksetzen */
+    position: static !important;
+    inset: auto !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 1.4rem !important;
+    color: var(--white) !important;
+    text-shadow: none !important;
+    letter-spacing: 0 !important;
+    line-height: 1 !important;
+    padding: 0 0.25rem !important;
+    margin-left: auto;
+    pointer-events: auto !important;
+    background: none !important;
+  }
+
+  /* Nav verstecken */
+  .nav {
     display: none;
     position: absolute;
-    top: 2.4rem;
+    top: 3.2rem;
     left: 0;
     right: 0;
     background: var(--blue);
@@ -807,34 +890,64 @@ body.layout-kontakt .site-footer {
     gap: 0;
     z-index: 99;
   }
-  .site-nav.open { display: flex; }
-  .site-nav a { padding: 0.5rem 0; width: 100%; }
 
-  /* Über mich */
-  .sa-boxes { flex-direction: column; }
-  .media-row { flex-direction: column; }
-  .media-row--reverse { flex-direction: column; }
-  .personalien-img,
-  .sa-img,
-  .interesse-img { width: 100%; height: 10rem; }
+  /* Checkbox aktiviert → Nav anzeigen */
+  #nav-toggle:checked ~ .header .nav {
+    display: flex;
+  }
 
-  /* Fähigkeiten */
-  .skills-grid-bottom { max-width: 100%; }
+  .nav a {
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+
+  /* Über mich: alles untereinander */
+  .two-boxes { flex-direction: column; }
+  .row,
+  .row.flip  { flex-direction: column; }
+  .img-person,
+  .img-interest { width: 100%; height: 10rem; }
+
+  /* Schule/Arbeit: Desktop-Version ausblenden, Mobile einblenden */
+  .school-row-desktop { display: none !important; }
+  .school-head { display: none; }
+  .school-mobile-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .school-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .school-block-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  .img-school { width: 100%; height: 10rem; }
+
+  /* Fähigkeiten: auf Handy 1 Spalte */
+  .cards-top { grid-template-columns: 1fr 1fr; }
+  .cards-bottom { max-width: 100%; }
 
   /* Portfolio */
-  .cards-grid-top { grid-template-columns: 1fr 1fr; }
-  .cards-grid-bottom { max-width: 100%; }
+  .projects-top    { grid-template-columns: 1fr 1fr; }
+  .projects-bottom { max-width: 100%; }
 
   /* Kontakt */
-  .page-body { flex-direction: column; }
-  .sidebar { width: 100%; min-width: unset; padding: 1.5rem 1.25rem; }
-  .contact-info { flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+  .contact-wrap { flex-direction: column; }
+  .sidebar { width: 100%; min-width: unset; }
+  .contact-info { flex-direction: row; flex-wrap: wrap; justify-content: center; }
 }
 
 @media (max-width: 400px) {
-  .skills-grid-top { grid-template-columns: 1fr 1fr; }
+  .cards-top { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 380px) {
-  .cards-grid-top { grid-template-columns: 1fr; }
+  .projects-top { grid-template-columns: 1fr; }
 }
